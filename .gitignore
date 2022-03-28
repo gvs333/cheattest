@@ -3,3 +3,4 @@
 **/*.jpeg
 .idea
 resources
+conf.yaml

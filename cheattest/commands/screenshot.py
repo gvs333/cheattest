@@ -19,6 +19,8 @@ class ScreenCommand(BaseCommand):
         screenshot = pyautogui.screenshot()
         when_taken = datetime.utcnow().isoformat()
         image_filepath = os.path.join(IMAGES_DIR, when_taken + ".jpeg")
+        
+        os.makedirs(os.path.dirname(image_filepath), exist_ok=True)
         screenshot.save(image_filepath)
 
         # lower image quality for lower size

@@ -19,6 +19,7 @@ class Utils:
         if os.path.exists(path):
             os.remove(path)
 
+        os.makedirs(os.path.dirname(path), exist_ok=True)
         sock = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
         sock.bind(path)
 
