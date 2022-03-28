@@ -1,0 +1,34 @@
+answers_local_filepath: "resources/ans.txt"
+answers_remote_filename: "ans.txt"
+
+drive_api_json_path: "resources/client_secrets.json"
+drive_dir_name: "screens"
+
+# quality from 0 to 100 of output jpegs
+image_quality: 65
+
+icon_image_props:
+  font_path: "resources/UbuntuMono-R.ttf"
+  font_size: 22
+  chars_per_screen: 4
+  sizes: [50, 50]
+  text_coords: [0, 8]
+
+# icon dropdown menu names
+icon_dropdown_names:
+  left: left
+  right: right
+  sync_answers: sync
+  toggle_visibility: show/hide
+  exit: exit
+
+# command aliases -> class paths
+commands_mapping:
+  sync_images: "cheattest.commands.gdrive.SyncImagesCommand"
+  sync_answers: "cheattest.commands.gdrive.SyncRemoteAnswersCommand"
+  make_screen: "cheattest.commands.screenshot.ScreenCommand"
+  restart_icon: "cheattest.commands.icon.RestartIconCommand"
+  send_left: "cheattest.commands.send_icon.SendLeftIconCommand"
+  send_right: "cheattest.commands.send_icon.SendRightIconCommand"
+  send_sync: "cheattest.commands.send_icon.SendSyncIconCommand"
+  send_toggle: "cheattest.commands.send_icon.SendToggleIconCommand"
