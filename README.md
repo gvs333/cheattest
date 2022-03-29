@@ -80,6 +80,32 @@ Notes:
 
 `python /path/to/cheattest/cli.py alias1 alias2 ...` 
 
+## **Demonstration**
+
+1) answers file contents: `1:1;2:4,6;`
+
+![image](https://user-images.githubusercontent.com/56230007/160715717-a2c275a0-de89-44ff-8022-7cacd2aa2441.png)
+
+![image](https://user-images.githubusercontent.com/56230007/160715742-0dc9a148-05ed-4461-87d9-ec02ab1d083e.png)
+
+![image](https://user-images.githubusercontent.com/56230007/160715765-b55d32f1-5dfa-4bd9-914c-fd88ad1696d6.png)
+
+![image](https://user-images.githubusercontent.com/56230007/160716478-97fdfed3-81ff-4326-b18f-47e91996dbed.png)
+
+
+2) `python cli.py make_screen sync_images`
+
+![Screenshot from 2022-03-30 01-17-19](https://user-images.githubusercontent.com/56230007/160716505-8a6a9d66-cc0f-4f4e-91f3-ac5d00ae3a92.png)
+
+![Screenshot from 2022-03-30 01-17-27](https://user-images.githubusercontent.com/56230007/160716519-3ddbf8a7-fc63-4a35-b5dd-69ea9871f340.png)
+
+
+
+
+
+
+
+
 
 
 
