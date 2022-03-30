@@ -14,6 +14,7 @@ At the time, this module allows you to set a bunch of keyboard shortcuts to:
 
 * `requirements.txt` (see its comments)
 * you should install them globally as icon lib `pystray`(at least) uses some system libs.
+* tested on pytnon 3.6.9
 
 ## **Usage**
 
