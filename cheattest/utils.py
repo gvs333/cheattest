@@ -46,9 +46,8 @@ class Utils:
 
         for command in commands:
             klass = Utils.load_command_class(conf, command)
-            if isclass(klass) and issubclass(klass, BaseCommand):
-                instance = klass(**conf)
-                instance.do()
+            instance = klass(**conf)
+            instance.do()
 
     @staticmethod
     def load_command_class(conf: Dict[str, Any], command_alias: str) -> Type[BaseCommand]:
