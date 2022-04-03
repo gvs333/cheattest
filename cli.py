@@ -1,4 +1,4 @@
-"""Accepts command aliases as cli arguments and executes corresponding 
+"""Accepts command aliases as cli arguments and executes corresponding
 commands sequentually.
 """
 

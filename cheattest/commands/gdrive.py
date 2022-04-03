@@ -1,8 +1,10 @@
 import os
 import glob
+from typing import List, Set
 
 from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
+from pydrive.files import GoogleDriveFile
 from oauth2client.service_account import ServiceAccountCredentials
 
 from cheattest.commands.base import BaseCommand
@@ -31,12 +33,12 @@ class DriveBaseCommand(BaseCommand):
             'q': f"trashed=False and title='{drive_dir_name}'"
                  "and mimeType='application/vnd.google-apps.folder'"
         }
-        file_list = self.drive.ListFile(query).GetList()
+        file_list: List[GoogleDriveFile] = self.drive.ListFile(query).GetList()
 
         if not file_list:
             raise Exception(f"Not found folder {drive_dir_name} on gdrive.")
 
-        self.folder_id = file_list[0]['id']
+        self.folder_id: str = file_list[0]['id']
 
 
 class SyncImagesCommand(DriveBaseCommand):
@@ -52,8 +54,8 @@ class SyncImagesCommand(DriveBaseCommand):
     def do(self):
         local_images_paths = set(glob.glob(os.path.join(IMAGES_DIR, "*.jpeg")))
 
-        remote_images_list = self.drive.ListFile(self.remote_images_gdrive_query).GetList()
-        remote_images_names_set = set(file['title'] for file in remote_images_list)
+        remote_images_list: List[GoogleDriveFile] = self.drive.ListFile(self.remote_images_gdrive_query).GetList()
+        remote_images_names_set: Set[str] = set(file['title'] for file in remote_images_list)
 
         for local_image in local_images_paths:
             if os.path.basename(local_image) in remote_images_names_set:
@@ -83,13 +85,13 @@ class SyncRemoteAnswersCommand(DriveBaseCommand):
         }
 
     def do(self):
-        result_list = self.drive.ListFile(self.answers_gdrive_query).GetList()
+        result_list: List[GoogleDriveFile] = self.drive.ListFile(self.answers_gdrive_query).GetList()
 
         if not result_list:
             return
 
         answers_fileobj = result_list[0]
-        content = answers_fileobj.GetContentString()
+        content: str = answers_fileobj.GetContentString()
 
         with open(self.local_answers_path, 'w') as f:
             f.write(content)

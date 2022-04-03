@@ -3,6 +3,7 @@ import importlib
 import os
 import socket
 from inspect import isclass
+from typing import Any, Dict, Sequence, Type
 
 import yaml
 
@@ -35,12 +36,12 @@ class Utils:
         return sock
 
     @staticmethod
-    def execute_commands(commands, conf):
+    def execute_commands(commands: Sequence[str], conf: Dict[str, Any]):
         """Executes commands sequentially.
 
         Args:
-        commands (list[str]): list of command aliases
-        conf (dict): dict with all conf
+        commands: list of command aliases
+        conf: dict with all conf
         """
 
         for command in commands:
@@ -50,18 +51,18 @@ class Utils:
                 instance.do()
 
     @staticmethod
-    def load_command_class(conf: dict, command_alias: str) -> BaseCommand:
+    def load_command_class(conf: Dict[str, Any], command_alias: str) -> Type[BaseCommand]:
         klass = Utils.load_module_object(conf['commands_mapping'][command_alias])
         assert isclass(klass) and issubclass(klass, BaseCommand)
 
         return klass
 
     @staticmethod
-    def load_module_object(path) -> any:
+    def load_module_object(path: str) -> Any:
         """Loads module object via importlib.
 
         Args:
-            path (str): dotted path to the object.
+            path: dotted path to the object.
             Last part is an object name within module."""
 
         last_dot = path.rindex(".")
@@ -72,7 +73,7 @@ class Utils:
         return getattr(module, class_name)
 
     @staticmethod
-    def create_multi_command(*command_classes) -> BaseCommand:
+    def create_multi_command(*command_classes: type) -> Type[BaseCommand]:
         """Create a wrapper class for multiple commands."""
 
         for klass in command_classes:
@@ -95,7 +96,7 @@ class Utils:
         return MultiCommand
 
     @staticmethod
-    def partialclass(cls, *args, **kwargs) -> type:
+    def partialclass(cls: type, *args, **kwargs) -> type:
 
         class NewCls(cls):
             __init__ = functools.partialmethod(cls.__init__, *args, **kwargs)
@@ -103,7 +104,7 @@ class Utils:
         return NewCls
 
     @staticmethod
-    def load_yaml_config(path: str) -> any:
+    def load_yaml_config(path: str) -> Any:
         with open(path) as f:
             return yaml.load(f, yaml.Loader)
 

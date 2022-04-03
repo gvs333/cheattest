@@ -3,9 +3,11 @@ import psutil
 import re
 import sys
 import _thread
+from typing import Any, Dict, Tuple
 
 import pystray
 from PIL import Image, ImageDraw, ImageFont
+from PIL.Image import Image as ImageType
 
 from cheattest.commands.base import BaseCommand
 from cheattest.constants import ICON_COMMANDS_SOCK_PATH, PACKET_LENGTH, IconProtocolValue
@@ -17,17 +19,17 @@ class StartIconCommand(BaseCommand):
 
     def __init__(self,
                  answers_local_filepath: str,
-                 icon_image_props: dict,
-                 icon_dropdown_names: dict,
+                 icon_image_props: Dict[str, Any],
+                 icon_dropdown_names: Dict[str, str],
                  **kwargs):
         self.answers_path = Utils.resolve_path(answers_local_filepath)
 
         self.font = ImageFont.truetype(Utils.resolve_path(icon_image_props['font_path']),
                                        icon_image_props['font_size'])
         self.icon_dropdown_names = icon_dropdown_names
-        self.chars_per_screen = icon_image_props['chars_per_screen']
-        self.image_sizes = icon_image_props['sizes']
-        self.text_coords = icon_image_props['text_coords']
+        self.chars_per_screen: int = icon_image_props['chars_per_screen']
+        self.image_sizes: Tuple[int, int] = icon_image_props['sizes']
+        self.text_coords: Tuple[int, int] = icon_image_props['text_coords']
 
         self.offset = 0
         self.data = ''
@@ -112,7 +114,7 @@ class StartIconCommand(BaseCommand):
 
         self.icon.icon = self.create_filled_icon_image()
 
-    def create_filled_icon_image(self) -> Image:
+    def create_filled_icon_image(self) -> ImageType:
         """Creates icon image filled with file's part's text."""
 
         image = self.create_icon_image()
@@ -123,7 +125,7 @@ class StartIconCommand(BaseCommand):
 
         return image
 
-    def create_icon_image(self) -> Image:
+    def create_icon_image(self) -> ImageType:
         """Creates empty icon image."""
 
         return Image.new("RGBA",
